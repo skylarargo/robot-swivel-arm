@@ -1,0 +1,131 @@
+﻿<!DOCTYPE html>
+
+<html>
+<head>
+    <title>
+        
+    </title>
+   
+</head>
+<body>
+    
+    
+
+    <div id="output"></div>
+   
+
+    <script src="three.js"></script>
+    <script>
+
+        
+        var scene = new THREE.Scene();
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setClearColor(0x000000, 1);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.getElementById("output").appendChild(renderer.domElement);
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 10000);
+
+             //CAMERA
+        camera.position.set(30, 20, 0);
+        camera.lookAt(new THREE.Vector3(0, 20, 0));
+
+        var spotlight1 = new THREE.DirectionalLight(0xffffff);
+        var spotlight2 = new THREE.DirectionalLight(0xffffff);
+        spotlight1.position.set(30, 20, 0);
+        spotlight2.position.set(0, 10, 10);
+        spotlight1.onlyShadow = false;
+        spotlight1.shadowDarkness = 1;
+        scene.add(spotlight1);
+        scene.add(spotlight2);
+
+        
+        var baseCircle = new THREE.Object3D();
+        var handCircle = new THREE.Object3D();
+        var arm2box = new THREE.Object3D();
+        var wrist = new THREE.Object3D();
+        var pinchers = new THREE.Object3D();
+        var armboxes = new THREE.Object3D();
+
+        var basecylinder = new THREE.Mesh(new THREE.CylinderGeometry(6, 10, 4), new THREE.MeshPhongMaterial({ color: 0x585858 }));
+        var armcircle1 = new THREE.Mesh(new THREE.SphereGeometry(3), new THREE.MeshPhongMaterial({ color: 0x61210B }));
+        var armcircle2 = new THREE.Mesh(new THREE.SphereGeometry(2.5), new THREE.MeshPhongMaterial({ color: 0x61210B }));
+        var arm1 = new THREE.Mesh(new THREE.BoxGeometry(1.75, 8, 1.75), new THREE.MeshPhongMaterial({ color: 0x0B2161 }));
+        var arm2box1 = new THREE.Mesh(new THREE.BoxGeometry(.50, 6, .50), new THREE.MeshPhongMaterial({ color: 0x0B2161 }));
+        var arm2box2 = new THREE.Mesh(new THREE.BoxGeometry(.50, 6, .50), new THREE.MeshPhongMaterial({ color: 0x0B2161 }));
+        var arm2box3 = new THREE.Mesh(new THREE.BoxGeometry(.50, 6, .50), new THREE.MeshPhongMaterial({ color: 0x0B2161 }));
+        var arm2box4 = new THREE.Mesh(new THREE.BoxGeometry(.50, 6, .50), new THREE.MeshPhongMaterial({ color: 0x0B2161 }));
+        var wristcylinder = new THREE.Mesh(new THREE.CylinderGeometry(2.5, 2.5, 4, 5, 5), new THREE.MeshPhongMaterial({ color: 0x585858 }));
+        var pincherlt = new THREE.Mesh(new THREE.BoxGeometry(1.25, .75, 0.2), new THREE.MeshPhongMaterial({ color: 0xE6E6E6 }));
+        var pincherrt = new THREE.Mesh(new THREE.BoxGeometry(1.25, .75, 0.2), new THREE.MeshPhongMaterial({ color: 0xE6E6E6 }));
+        var pincherlb = new THREE.Mesh(new THREE.BoxGeometry(1.25, .75, 0.2), new THREE.MeshPhongMaterial({ color: 0xE6E6E6 }));
+        var pincherrb = new THREE.Mesh(new THREE.BoxGeometry(1.25, .75, 0.2), new THREE.MeshPhongMaterial({ color: 0xE6E6E6 }));
+
+        scene.add(basecylinder);
+	
+
+		
+		pinchers.add(pincherlt);
+		pinchers.add(pincherrt);
+		pinchers.add(pincherlb);
+		pinchers.add(pincherrb);
+
+		wrist.add(pinchers);
+		wrist.add(wristcylinder);
+
+		handCircle.add(arm2box1);
+		handCircle.add(arm2box2);
+		handCircle.add(arm2box3);
+		handCircle.add(arm2box4);
+		handCircle.add(wrist);
+		handCircle.add(armcircle2);
+		baseCircle.add(arm1);
+		baseCircle.add(handCircle);
+		baseCircle.add(armcircle1);
+
+		scene.add(baseCircle);
+
+       
+
+        basecylinder.position.set(0, 0, 0);
+        armcircle1.position.set(0, 3, 0);
+        arm1.position.set(0, 9, 0);
+        armcircle2.position.set(0, 13, 0);
+
+        arm2box1.position.set(-.5, 17, .5);
+        arm2box2.position.set(.5, 17, .5);
+        arm2box3.position.set(-.5, 17, -.5);
+        arm2box4.position.set(.5, 17, -.5);
+
+        pincherlt.position.set(2.25, 22, 1.5);
+        pincherlt.rotateX(1);
+
+        pincherrt.position.set(2.25, 22, -1.5);
+        pincherrt.rotateX(-1);
+
+        pincherlb.position.set(2.25, 20, 1.5);
+        pincherlb.rotateX(-1);
+
+        pincherrb.position.set(2.25, 20, -1.5);
+        pincherrb.rotateX(1);
+
+        wristcylinder.rotateZ(1);
+        wristcylinder.rotateX(Math.PI/2);
+        wristcylinder.position.set(0, 21, 0);
+
+       
+
+        render();
+        
+     
+
+        function render()
+        {
+            
+            renderer.render(scene, camera);
+            window.requestAnimationFrame(render);
+        }
+
+        
+    </script>
+</body>
+</html>
